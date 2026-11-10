@@ -1,4 +1,4 @@
-import { allPosts, categories } from '../data/posts';
+import { allPosts } from '../data/posts';
 import { BlogPost } from '../types';
 
 export function getSortedPosts(): BlogPost[] {
