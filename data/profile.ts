@@ -8,4 +8,5 @@ export const profile = {
   email: "abdullahalaadine63@gmail.com",
   github: "https://github.com/hrtsegv",
   linkedin: "https://www.linkedin.com/in/abdullah-alaadine/",
+  instagram: "https://www.instagram.com/a6h.aladdin/",
 };

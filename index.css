@@ -547,6 +547,11 @@ svg {
 .site-footer a:hover {
   color: var(--accent);
 }
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
 .page-heading {
   margin: 18px 0 34px;
 }

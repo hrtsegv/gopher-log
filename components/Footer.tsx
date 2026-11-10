@@ -12,9 +12,14 @@ export function Footer() {
           "© {new Date().getFullYear()} {profile.handle}"
         </span>
       </span>
-      <a href={profile.github} target="_blank" rel="noreferrer">
-        find me on GitHub <span aria-hidden="true">↗</span>
-      </a>
+      <nav className="footer-links" aria-label="Social links">
+        <a href={profile.github} target="_blank" rel="noreferrer">
+          GitHub <span aria-hidden="true">↗</span>
+        </a>
+        <a href={profile.instagram} target="_blank" rel="noreferrer">
+          Instagram <span aria-hidden="true">↗</span>
+        </a>
+      </nav>
     </footer>
   );
 }

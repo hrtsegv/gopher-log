@@ -34,6 +34,13 @@ export function About() {
           <Link to="/writing">note about what I’m learning</Link>. GopherLog is
           the notebook; it grows when I have something useful to share.
         </p>
+        <p>
+          You can also find me on{" "}
+          <a href={profile.instagram} target="_blank" rel="noreferrer">
+            Instagram (@a6h.aladdin)
+          </a>
+          .
+        </p>
       </div>
       <section className="about-details" aria-labelledby="interests-heading">
         <h2 id="interests-heading">A few things I work with</h2>
