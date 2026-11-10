@@ -1,94 +1,52 @@
-# Go Engineer Blog
+# hrtsegv / GopherLog
 
-A minimalist, high-performance blog template designed specifically for backend engineers. Built with React, TypeScript, and Tailwind CSS, featuring Markdown support, syntax highlighting, and a sleek dark-mode aesthetic.
+A personal engineering site with selected projects and occasional writing about Go and systems. Built with React, TypeScript, and Vite; hosted on GitHub Pages.
 
-## Features
+## Development
 
-- 🚀 **Modern Stack**: Built with React 19, TypeScript, and Vite for fast development
-- 📝 **Markdown Support**: Write posts in Markdown with frontmatter metadata
-- 🌓 **Dark Mode**: Beautiful dark theme with theme toggle
-- ⚡ **Syntax Highlighting**: Code syntax highlighting using rehype-highlight
-- 🏷️ **Categories & Tags**: Organize content by categories and tags
-- 📱 **Responsive Design**: Mobile-first responsive layout
-- 🎯 **Performance Optimized**: Lightweight and fast
+Use Node.js 22.18+ and npm.
 
-## Project Structure
-
-```
-go-engineer-blog/
-├── components/          # React components
-│   ├── Layout.tsx      # Main layout component
-│   ├── Header.tsx      # Navigation header
-│   ├── PostCard.tsx    # Blog post card component
-│   └── ...
-├── pages/              # Page components
-│   ├── Home.tsx        # Homepage with post listings
-│   ├── Post.tsx        # Individual blog post page
-│   ├── About.tsx       # About page
-│   └── Categories.tsx  # Categories listing
-├── data/
-│   └── posts.ts        # Blog posts data and content
-├── lib/
-│   ├── utils.ts        # Utility functions
-│   └── markdown.ts     # Markdown processing
-└── types.ts            # TypeScript type definitions
+```sh
+npm ci
+npm run dev
 ```
 
-## Getting Started
+## Write a post
 
-**Prerequisites:** Node.js 18+
-
-1. **Install dependencies:**
-   ```bash
-   npm install
-   ```
-
-2. **Start the development server:**
-   ```bash
-   npm run dev
-   ```
-
-3. **Open your browser** and navigate to `http://localhost:5173`
-
-## Available Scripts
-
-- `npm run dev` - Start the development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview the production build
-
-## Adding New Blog Posts
-
-Blog posts are stored in `data/posts.ts` as Markdown strings with YAML frontmatter. Each post should include:
+Create a Markdown file in `content/posts/`. Posts are discovered automatically; no TypeScript changes are needed.
 
 ```markdown
 ---
-title: Your Post Title
-date: 2024-01-15
-description: A brief description of the post
+title: "A small thing I learned"
+date: 2026-11-10
+description: "A short description of the problem and what worked."
 category: Go
-tags: [go, programming, tutorial]
-slug: your-post-slug
+tags: [go, debugging]
+slug: a-small-thing-i-learned
 ---
 
-# Your Post Title
-
-Your markdown content here...
+Start writing here. Use Markdown headings, links, tables, and fenced code blocks.
 ```
 
-## Technologies Used
+Quote titles and descriptions containing a colon. Slugs must be unique lowercase words separated by hyphens. Existing slugs should stay unchanged so published links keep working. Posts appear newest first. Dates use `YYYY-MM-DD`; tags are optional. Invalid metadata produces an error naming the file.
 
-- **React 19** - UI framework
-- **TypeScript** - Type safety
-- **Vite** - Build tool and dev server
-- **Tailwind CSS** - Utility-first CSS framework
-- **React Router** - Client-side routing
-- **React Markdown** - Markdown rendering
-- **Lucide React** - Icon library
-- **rehype-highlight** - Syntax highlighting
+## Check and build
 
-## Customization
+```sh
+npm run typecheck
+npm test
+npm run check:content
+npm run build
+npm run preview
+```
 
-- **Theme**: Colors and styling can be customized in `tailwind.config.js`
-- **Layout**: Modify components in the `components/` directory
-- **Content**: Add or edit posts in `data/posts.ts`
-- **Routing**: Add new routes in `App.tsx`
+Every build checks TypeScript and all post metadata, including duplicate slugs. The GitHub Actions workflow also runs the content parser tests, then builds and deploys `dist/` on pushes to `main`. Hash routes keep direct article links working on GitHub Pages under `/gopher-log/`.
+
+## Customize
+
+- `data/profile.ts`: identity, introduction, and contact links.
+- `data/projects.ts`: the full project collection.
+- `pages/Home.tsx`: featured projects and homepage structure.
+- `index.css`: colors, layout, typography, and responsive styles.
+
+The site defaults to a dark terminal palette. The theme button also offers a light palette and remembers the visitor's choice.
