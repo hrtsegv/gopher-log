@@ -1,19 +1,31 @@
-import React from 'react';
-import { Header } from './Header';
-import { Footer } from './Footer';
+import { useEffect, type ReactNode } from "react";
+import { useLocation } from "react-router-dom";
+import { Header } from "./Header";
+import { Footer } from "./Footer";
 
-interface LayoutProps {
-  children: React.ReactNode;
-}
+export function Layout({ children }: { children: ReactNode }) {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
-export const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div className="flex flex-col min-h-screen font-sans">
+    <div className="site-shell">
+      <a
+        className="skip-link"
+        href="#main-content"
+        onClick={(event) => {
+          event.preventDefault();
+          document.getElementById("main-content")?.focus();
+        }}
+      >
+        Skip to content
+      </a>
       <Header />
-      <main className="flex-grow w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <main id="main-content" tabIndex={-1}>
         {children}
       </main>
       <Footer />
     </div>
   );
-};
+}

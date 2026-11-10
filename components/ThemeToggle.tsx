@@ -1,44 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import { Moon, Sun } from 'lucide-react';
-import { cn } from '../lib/utils';
+import { useState } from "react";
+import { Moon, Sun } from "lucide-react";
 
-export const ThemeToggle: React.FC<{ className?: string }> = ({ className }) => {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
-
-  useEffect(() => {
-    // Check system preference or localStorage
-    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      setTheme('dark');
-      document.documentElement.classList.add('dark');
-    } else {
-      setTheme('light');
-      document.documentElement.classList.remove('dark');
+export function ThemeToggle() {
+  const [light, setLight] = useState(
+    () => document.documentElement.dataset.theme === "light",
+  );
+  const toggle = () => {
+    const next = !light;
+    document.documentElement.dataset.theme = next ? "light" : "dark";
+    try {
+      localStorage.setItem("theme", next ? "light" : "dark");
+    } catch {
+      /* The theme works without storage. */
     }
-  }, []);
-
-  const toggleTheme = () => {
-    if (theme === 'light') {
-      setTheme('dark');
-      document.documentElement.classList.add('dark');
-      localStorage.theme = 'dark';
-    } else {
-      setTheme('light');
-      document.documentElement.classList.remove('dark');
-      localStorage.theme = 'light';
-    }
+    setLight(next);
   };
 
   return (
     <button
-      onClick={toggleTheme}
-      className={cn(
-        "p-2 rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500",
-        "hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300",
-        className
-      )}
-      aria-label="Toggle Dark Mode"
+      className="theme-toggle"
+      onClick={toggle}
+      aria-label={`Switch to ${light ? "dark" : "light"} theme`}
+      title={`Switch to ${light ? "dark" : "light"} theme`}
     >
-      {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+      {light ? (
+        <Moon size={16} aria-hidden="true" />
+      ) : (
+        <Sun size={16} aria-hidden="true" />
+      )}
     </button>
   );
-};
+}
